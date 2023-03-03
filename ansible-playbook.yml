@@ -15,6 +15,7 @@
     command : sudo systemctl start docker
     become : yes
     become_user : root
-
+  - name : stop existing containers
+    command: docker stop $(docker ps -aq)
   - name: Deploy Docker Container
-    command: docker run -itd -p 8085:8081 vikuldocker/insureme:1.0
+    command: docker run -itd -p 8089:8081 vikuldocker/insureme:1.0
