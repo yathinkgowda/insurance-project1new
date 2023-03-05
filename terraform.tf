@@ -103,6 +103,13 @@ resource "aws_network_interface" "proj-ni" {
  security_groups = [aws_security_group.proj-sg.id]
 }
 
+# Attaching an elastic IP to the network interface
+resource "aws_eip" "proj-eip" {
+ vpc = true
+ network_interface = aws_network_interface.proj-ni.id
+ associate_with_private_ip = "10.0.1.10"
+}
+
 
 # Creating an ubuntu EC2 instance
 resource "aws_instance" "Prod-Server" {
