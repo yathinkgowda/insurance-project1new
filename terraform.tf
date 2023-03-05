@@ -138,7 +138,7 @@ resource "aws_instance" "Prod-Server" {
      sudo systemctl enable cri-docker.service
      sudo systemctl enable --now cri-docker.socket
      sudo VERSION="v1.24.1" # check latest version in /releases page
-     sudo curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/$VERSION/crictl-${VERSION}-linux-amd64.tar.gz --output crictl-${VERSION}-linux-amd64.tar.gz
+     curl -L https://github.com/kubernetes-sigs/cri-tools/releases/download/$VERSION/crictl-${VERSION}-linux-amd64.tar.gz --output crictl-${VERSION}-linux-amd64.tar.gz
      sudo tar zxvf crictl-$VERSION-linux-amd64.tar.gz -C /usr/local/bin
      sudo rm -f crictl-$VERSION-linux-amd64.tar.gz
      sudo cp /usr/local/bin/cri-dockerd /usr/bin/
