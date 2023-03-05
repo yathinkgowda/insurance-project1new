@@ -104,7 +104,7 @@ resource "aws_network_interface" "proj-ni" {
 }
 
 # Creating an ubuntu EC2 instance
-resource "aws_instance" "Production-instance" {
+resource "aws_instance" "Prod-Server" {
  ami = "ami-0ef82eeba2c7a0eeb"
  instance_type = "t2.medium"
  availability_zone = "ap-south-1b"
