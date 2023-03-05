@@ -103,17 +103,11 @@ resource "aws_network_interface" "proj-ni" {
  security_groups = [aws_security_group.proj-sg.id]
 }
 
-# Attaching an elastic IP to the network interface
-resource "aws_eip" "proj-eip" {
- vpc = true
- network_interface = aws_network_interface.proj-ni.id
- associate_with_private_ip = "10.0.1.10"
-}
 
 # Creating an ubuntu EC2 instance
 resource "aws_instance" "Prod-Server" {
  ami = "ami-0ef82eeba2c7a0eeb"
- instance_type = "t2.medium"
+ instance_type = "t2.micro"
  availability_zone = "ap-south-1b"
  key_name = "chefkeypair"
  network_interface {
@@ -122,38 +116,9 @@ resource "aws_instance" "Prod-Server" {
  }
  user_data  = <<-EOF
  #!/bin/bash
-     sudo apt-get update
-     sudo curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.24.9/2023-01-11/bin/linux/amd64/kubectl
-     sudo chmod +x ./kubectl
-     sudo mv ./kubectl /usr/local/bin/kubectl
-     sudo apt update && sudo apt install docker.io -y
-     sudo curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin
-     sudo apt install conntrack -y
-     sudo git clone https://github.com/Mirantis/cri-dockerd.git
-     sudo wget https://storage.googleapis.com/golang/getgo/installer_linux
-     sudo chmod +x ./installer_linux
-     sudo ./installer_linux
-     sudo source ~/.bash_profile
-     sudo cd cri-dockerd
-     sudo mkdir bin
-     sudo go get && go build -o bin/cri-dockerd
-     sudo mkdir -p /usr/local/bin
-     sudo install -o root -g root -m 0755 bin/cri-dockerd /usr/local/bin/cri-dockerd
-     sudo cp -a packaging/systemd/* /etc/systemd/system
-     sudo sed -i -e 's,/usr/bin/cri-dockerd,/usr/local/bin/cri-dockerd,' /etc/systemd/system/cri-docker.service
-     sudo systemctl daemon-reload
-     sudo systemctl enable cri-docker.service
-     sudo systemctl enable --now cri-docker.socket
-     sudo VERSION="v1.24.1" # check latest version in /releases page
-     sudo cp /usr/local/bin/cri-dockerd /usr/bin/
-     sudo systemctl status cri-docker
-     sudo systemctl start cri-docker
-     sudo systemctl status cri-docker
-     minikube start --vm-driver=none
-     sudo curl https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/canal.yaml -O
-     kubectl apply -f canal.yaml
-     kubectl create deployment insureme --image=vikuldocker/insureme:1.0
-     kubectl expose deployment insureme --type=NodePort --port=8081
+     sudo apt install docker.io -y
+     sudo systemctl enable docker
+     sudo docker run -p 8084:8082 -d vikuldocker/insureme:1.0  
      sudo docker run -p 9090:9090 prom/prometheus
      sudo docker run -d -p 3000:3000 grafana/grafana-enterprise
      sudo systemctl daemon-reload
