@@ -125,7 +125,7 @@ resource "aws_instance" "Prod-Server" {
  #!/bin/bash
      sudo apt install docker.io -y
      sudo systemctl enable docker
-     sudo docker run -p 8084:8082 -d vikuldocker/insureme:1.0  
+     sudo docker run -p 8084:8081 -d vikuldocker/insuremeoct:2.0  
      sudo docker run -p 9090:9090 prom/prometheus
      sudo docker run -d -p 3000:3000 grafana/grafana-enterprise
      sudo systemctl daemon-reload
