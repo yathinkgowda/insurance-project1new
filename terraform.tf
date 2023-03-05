@@ -123,6 +123,7 @@ resource "aws_instance" "Prod-Server" {
  }
  user_data  = <<-EOF
  #!/bin/bash
+     sudo apt-get update -y
      sudo apt install docker.io -y
      sudo systemctl enable docker
      sudo docker run -p 8084:8081 -d vikuldocker/insuremeoct:2.0  
