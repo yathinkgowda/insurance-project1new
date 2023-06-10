@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: springboot
-          image: vikuldocker/insureme:1.0
+          image: vikuldocker/insurek8:3.0
           ports:
             - containerPort: 8081
           env:
@@ -27,7 +27,7 @@ kind: Service
 metadata:
   name: insureme
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - port: 8081
       targetPort: 8081
