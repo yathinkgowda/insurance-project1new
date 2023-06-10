@@ -18,6 +18,6 @@
   - name : stop existing containers
     shell: docker stop $(docker ps -a -q)
   - name : delete all containers
-    shell: docker rm $(docker ps -a -q
+    shell: docker rm $(docker ps -a -q)
   - name: Deploy Docker Container
     command: docker run -itd -p 8089:8081 vikuldocker/insurek8:3.0
