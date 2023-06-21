@@ -139,7 +139,7 @@ resource "aws_instance" "Prod-Server" {
      sudo apt-get update -y
      sudo apt install docker.io -y
      sudo systemctl enable docker
-     sudo docker run -itd -p 8084:8081 vikuldocker/financeme:1.0 > /tmp/container.log 2>&1
+     sudo docker run -itd -p 8085:8080 vikuldocker/insureme:1.0 > /tmp/container.log 2>&1
      sudo docker start $(docker ps -aq)
  EOF
  tags = {
