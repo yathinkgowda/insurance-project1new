@@ -64,6 +64,19 @@ resource "aws_security_group" "proj-sg" {
  description = "Enable web traffic for the project"
  vpc_id = aws_vpc.proj-vpc.id
  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+ ingress {
  description = "HTTPS traffic"
  from_port = 443
  to_port = 443
@@ -126,7 +139,7 @@ resource "aws_instance" "Prod-Server" {
      sudo apt-get update -y
      sudo apt install docker.io -y
      sudo systemctl enable docker
-     sudo docker run -d -p 8084:8081 vikuldocker/financeme:1.0
+     sudo docker run -itd -p 8084:8081 vikuldocker/financeme:1.0 > /tmp/container.log 2>&1
  EOF
  tags = {
  Name = "Prod-Server"
