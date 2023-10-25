@@ -14,8 +14,8 @@ spec:
         app: insureme
     spec:
       containers:
-        - name: springboot
-          image: vikuldocker/insurance2:1.0
+        - name: insurance
+          image: vikuldocker/insuranceproject:1.0
           ports:
             - containerPort: 8081
           env:
