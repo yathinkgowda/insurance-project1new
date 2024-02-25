@@ -6,15 +6,15 @@
   - name: updating apt
     command : sudo apt-get update
 
-  - name : Install Docker
-    command : sudo apt-get install -y docker.io
-    become : yes
-    become_user : root
+ # - name : Install Docker
+   # command : sudo apt-get install -y docker.io
+  #  become : yes
+  #  become_user : root
 
-  - name : Start Docker Service
-    command : sudo systemctl start docker
-    become : yes
-    become_user : root
+#  - name : Start Docker Service
+  #  command : sudo systemctl start docker
+  #  become : yes
+ #   become_user : root
   - name : stop existing containers
     shell: docker stop $(docker ps -a -q)
   - name : delete all containers
