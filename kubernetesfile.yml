@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: insurance
-          image: vikuldocker/insure-project_vikul:1.0
+          image: vikuldocker/akshatinsurance:1.0
           ports:
             - containerPort: 8081
           env:
